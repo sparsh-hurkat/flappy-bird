@@ -28,11 +28,14 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('pipe-body', '/assets/pipe-body.png');
-    this.load.image('pipe-cap', '/assets/pipe-cap.png');
-    this.load.image('bird', '/assets/bird.png');
-    this.load.image('logo', '/assets/logo.png');
-    // this.load.image('background', '/assets/background.png');
+    // Get base URL from base tag or detect from pathname
+    const baseTag = document.querySelector('base')?.getAttribute('href');
+    const baseUrl = baseTag || (window.location.pathname.includes('/flappy-bird') ? '/flappy-bird/' : '/');
+    this.load.image('pipe-body', `${baseUrl}assets/pipe-body.png`);
+    this.load.image('pipe-cap', `${baseUrl}assets/pipe-cap.png`);
+    this.load.image('bird', `${baseUrl}assets/bird.png`);
+    this.load.image('logo', `${baseUrl}assets/logo.png`);
+    // this.load.image('background', `${baseUrl}assets/background.png`);
   }
 
   create() {
