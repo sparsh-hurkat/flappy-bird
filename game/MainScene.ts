@@ -1,6 +1,15 @@
 import Phaser from 'phaser';
 import { GameEvents } from '../types';
 
+// Helper to get base URL for assets
+function getBaseUrl(): string {
+  const pathname = window.location.pathname;
+  if (pathname.startsWith('/flappy-bird')) {
+    return '/flappy-bird/';
+  }
+  return '/';
+}
+
 export class MainScene extends Phaser.Scene {
   declare add: Phaser.GameObjects.GameObjectFactory;
   declare sys: Phaser.Scenes.Systems;
@@ -28,9 +37,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload() {
-    // Get base URL from base tag or detect from pathname
-    const baseTag = document.querySelector('base')?.getAttribute('href');
-    const baseUrl = baseTag || (window.location.pathname.includes('/flappy-bird') ? '/flappy-bird/' : '/');
+    const baseUrl = getBaseUrl();
     this.load.image('pipe-body', `${baseUrl}assets/pipe-body.png`);
     this.load.image('pipe-cap', `${baseUrl}assets/pipe-cap.png`);
     this.load.image('bird', `${baseUrl}assets/bird.png`);

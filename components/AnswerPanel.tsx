@@ -18,7 +18,12 @@ export const AnswerPanel: React.FC<AnswerPanelProps> = ({ unlockedCount, setUnlo
     <div className="h-full overflow-y-auto bg-slate-50 p-8 flex flex-col gap-8">
       <div className="mb-4">
         <div className="flex items-center gap-3 mb-2">
-          <img src="/assets/logo.png" width={24} height={24} alt="OpenSesame Logo" />
+          <img
+            src={`${window.location.pathname.startsWith('/flappy-bird') ? '/flappy-bird' : ''}/assets/logo.png`}
+            width={24}
+            height={24}
+            alt="OpenSesame Logo"
+          />
           <h1 className="text-3xl font-extrabold text-slate-800">OpenSesame Application</h1>
         </div>
         <p className="text-slate-500">
