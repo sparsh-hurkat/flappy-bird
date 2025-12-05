@@ -120,37 +120,37 @@ export class MainScene extends Phaser.Scene {
     const canvasHeight = this.sys.canvas.height;
     const pipeSegmentHeight = 60;
     const holeHeight = 3;
-    
+
     const totalSegments = Math.ceil(canvasHeight / pipeSegmentHeight);
-    
+
     const minHole = 1;
     const maxHole = totalSegments - holeHeight - 1;
     const hole = Math.floor(Math.random() * (maxHole - minHole + 1)) + minHole;
-    
-    for (let i = 0; i < totalSegments; i++) { 
+
+    for (let i = 0; i < totalSegments; i++) {
       if (i !== hole && i !== hole + 1 && i !== hole + 2) {
-        
+
         let texture = 'pipe-body';
         let offsetX = 0;
         const isBottomPipe = i > hole + 2;
         let isCap = false;
 
         if (i === hole - 1) {
-            texture = 'pipe-cap';
-            offsetX = 0;
-            isCap = true;
+          texture = 'pipe-cap';
+          offsetX = 0;
+          isCap = true;
         }
-        
+
         else if (i === hole + 3) {
-            texture = 'pipe-cap';
-            offsetX = 0;
-            isCap = true;
+          texture = 'pipe-cap';
+          offsetX = 0;
+          isCap = true;
         }
 
         this.addOnePipe(this.sys.canvas.width + offsetX, i * pipeSegmentHeight + pipeSegmentHeight / 2, texture, isBottomPipe, isCap);
       }
     }
-    
+
     this.score += 1;
     this.game.events.emit(GameEvents.SCORE_UPDATE, this.score);
   }
@@ -170,21 +170,21 @@ export class MainScene extends Phaser.Scene {
 
   spawnLogo() {
     if (!this.isGameRunning) return;
-    
+
     const height = this.sys.canvas.height;
     const y = Phaser.Math.Between(100, height - 100);
-    
+
     const logo = this.logos.create(this.sys.canvas.width, y, 'logo');
-    logo.setVelocityX(-250); 
+    logo.setVelocityX(-250);
     logo.setImmovable(true);
     logo.body.allowGravity = false;
-    
+
     this.tweens.add({
-        targets: logo,
-        y: y + 30,
-        duration: 1000,
-        yoyo: true,
-        repeat: -1
+      targets: logo,
+      y: y + 30,
+      duration: 1000,
+      yoyo: true,
+      repeat: -1
     });
   }
 
@@ -204,16 +204,16 @@ export class MainScene extends Phaser.Scene {
   pauseGame() {
     this.physics.pause();
     this.isGameRunning = false;
-    if(this.pipeTimer) this.pipeTimer.paused = true;
-    if(this.logoTimer) this.logoTimer.paused = true;
+    if (this.pipeTimer) this.pipeTimer.paused = true;
+    if (this.logoTimer) this.logoTimer.paused = true;
   }
 
   public resumeGame() {
     this.physics.resume();
     this.isGameRunning = true;
-    if(this.pipeTimer) this.pipeTimer.paused = false;
-    if(this.logoTimer) this.logoTimer.paused = false;
-    this.bird.setVelocityY(-200); 
+    if (this.pipeTimer) this.pipeTimer.paused = false;
+    if (this.logoTimer) this.logoTimer.paused = false;
+    this.bird.setVelocityY(-200);
   }
 
   public restartGame() {
@@ -233,12 +233,12 @@ export class MainScene extends Phaser.Scene {
   }
 
   createBackgroundTexture() {
-     const graphics = this.make.graphics({ x: 0, y: 0 });
-     const width = this.sys.canvas.width;
-     const height = this.sys.canvas.height;
-     graphics.fillStyle(0x93c5fd); // Light Blue Sky
-     graphics.fillRect(0, 0, width, height);
-     graphics.generateTexture('background', width, height);
-     graphics.destroy();
+    const graphics = this.make.graphics({ x: 0, y: 0 });
+    const width = this.sys.canvas.width;
+    const height = this.sys.canvas.height;
+    graphics.fillStyle(0x93c5fd); // Light Blue Sky
+    graphics.fillRect(0, 0, width, height);
+    graphics.generateTexture('background', width, height);
+    graphics.destroy();
   }
 }

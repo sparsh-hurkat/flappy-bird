@@ -119,9 +119,9 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ onUnlock }) => {
 
       {/* Start Instructions Overlay */}
       {!gameOver && !pausedForUnlock && score === 0 && (
-         <div className="absolute bottom-10 left-0 right-0 text-center pointer-events-none opacity-75">
-            <p className="text-white text-lg font-bold shadow-black drop-shadow-md">Tap or Spacebar to Jump</p>
-         </div>
+        <div className="absolute bottom-10 left-0 right-0 text-center pointer-events-none opacity-75">
+          <p className="text-white text-lg font-bold shadow-black drop-shadow-md">Tap or Spacebar to Jump</p>
+        </div>
       )}
     </div>
   );
