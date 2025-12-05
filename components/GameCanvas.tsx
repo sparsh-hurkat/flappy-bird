@@ -5,9 +5,10 @@ import { GameEvents } from '../types';
 
 interface GameCanvasProps {
   onUnlock: () => void;
+  unlockedCount: number;
 }
 
-export const GameCanvas: React.FC<GameCanvasProps> = ({ onUnlock }) => {
+export const GameCanvas: React.FC<GameCanvasProps> = ({ onUnlock, unlockedCount }) => {
   const gameRef = useRef<Phaser.Game | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [gameOver, setGameOver] = useState(false);
@@ -58,6 +59,15 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ onUnlock }) => {
       game.destroy(true);
     };
   }, [onUnlock]);
+
+  useEffect(() => {
+    if (gameRef.current) {
+      const scene = gameRef.current.scene.getScene('MainScene') as MainScene;
+      if (scene) {
+        scene.setUnlockedCount(unlockedCount);
+      }
+    }
+  }, [unlockedCount]);
 
   const handleRestart = () => {
     if (gameRef.current) {

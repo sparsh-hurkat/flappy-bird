@@ -31,6 +31,7 @@ export class MainScene extends Phaser.Scene {
   private isGameRunning: boolean = false;
   private pipeTimer!: Phaser.Time.TimerEvent;
   private logoTimer!: Phaser.Time.TimerEvent;
+  private unlockedCount: number = 0;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -200,8 +201,13 @@ export class MainScene extends Phaser.Scene {
 
   collectLogo(bird: any, logo: any) {
     logo.destroy();
-    this.pauseGame();
-    this.game.events.emit(GameEvents.UNLOCK_ANSWER);
+    if (this.unlockedCount >= 3) {
+      this.score += 10;
+      this.game.events.emit(GameEvents.SCORE_UPDATE, this.score);
+    } else {
+      this.pauseGame();
+      this.game.events.emit(GameEvents.UNLOCK_ANSWER);
+    }
   }
 
   hitPipe() {
@@ -228,6 +234,10 @@ export class MainScene extends Phaser.Scene {
 
   public restartGame() {
     this.scene.restart();
+  }
+
+  public setUnlockedCount(count: number) {
+    this.unlockedCount = count;
   }
 
   createLogoTexture() {
